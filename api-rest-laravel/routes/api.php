@@ -3,6 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BirdController;
+use App\Http\Controllers\ProductController;
+
+Route::get('/products', [ProductController::class, 'index']);
+
+Route::post('/product-add', [ProductController::class, 'create']);
 
 Route::get('/birds', [BirdController::class, 'index']);
 Route::get('/birds/minsize', [BirdController::class, 'minsize']);

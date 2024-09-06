@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bird;
+use Illuminate\Routing\Middleware\ValidateSignature;
+use Illuminate\Support\Facades\Validator;
 
 class BirdController extends Controller
 {
