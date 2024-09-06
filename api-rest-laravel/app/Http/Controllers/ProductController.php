@@ -54,4 +54,58 @@ class ProductController extends Controller
             'data' => $product
         ], 200);
     }
+
+    public function update(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:products,id',
+            'nom' => 'required',
+            'prix' => 'required|decimal:0,2'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'validation error',
+                'data' => $validator->errors()
+            ], 422);
+        }
+
+        $product = Product::find($request->id);
+
+        $product->nom = $request->nom;
+        $product->description = isset($request->description) ? $request->description : '';
+        $product->prix = $request->prix;
+    
+        $product->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'product edited successfully',
+            'data' => $product
+        ], 200);
+    }
+
+    public function delete(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:products,id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'validation error',
+                'data' => $validator->errors()
+            ], 422);
+        }
+
+        $product = Product::find($request->id);
+
+        $product->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'product removed successfully',
+            'data' => $product
+        ], 200);
+    }
 }

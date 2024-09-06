@@ -9,6 +9,10 @@ Route::get('/products', [ProductController::class, 'index']);
 
 Route::post('/product-add', [ProductController::class, 'create']);
 
+Route::post('/product-update', [ProductController::class, 'update']);
+
+Route::delete('/product-delete', [ProductController::class, 'delete']);
+
 Route::get('/birds', [BirdController::class, 'index']);
 Route::get('/birds/minsize', [BirdController::class, 'minsize']);
 Route::get('/birds/minsizeforest', [BirdController::class, 'minsizeforest']);
