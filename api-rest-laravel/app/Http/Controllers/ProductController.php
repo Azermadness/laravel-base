@@ -9,10 +9,20 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-
     public function index(Request $request)
     {
-        return response()->json(Product::all());
+        $products = Product::where('nom' , '!=', '');
+        if (isset($request->id) && $request->id != '') {
+            $products = $products->where('id', $request->id);
+        }
+
+        $products = $products->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'products listed successfully',
+            'data' => $products
+        ], 200);
     }
 
     public function create(Request $request)
@@ -32,7 +42,7 @@ class ProductController extends Controller
 
         $inputData = array(
             'nom' => $request->nom,
-            'description' => isset($request->nom) ? $request->nom : '',
+            'description' => isset($request->description) ? $request->description : '',
             'prix' => $request->prix,
         );
 
