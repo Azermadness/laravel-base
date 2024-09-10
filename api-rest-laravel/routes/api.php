@@ -6,6 +6,7 @@ use App\Http\Controllers\BirdController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/products', [ProductController::class, 'index']);
 
@@ -29,3 +30,10 @@ Route::apiResource('homes', HomeController::class);
 Route::apiResource('owners', OwnerController::class);
 
 Route::get('/owners/{id}/homes', [OwnerController::class, 'owner_home']);
+
+// auth
+
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
+Route::middleware('auth:sanctum')->get('me', [AuthController::class, 'me']);
