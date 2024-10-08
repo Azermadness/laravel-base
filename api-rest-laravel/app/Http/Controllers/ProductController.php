@@ -57,9 +57,7 @@ class ProductController extends Controller
 
     public function update(Request $request) {
         $validator = Validator::make($request->all(), [
-            'id' => 'required|exists:products,id',
-            'nom' => 'required',
-            'prix' => 'required|decimal:0,2'
+            'note' => 'required'
         ]);
 
         if ($validator->fails()) {
